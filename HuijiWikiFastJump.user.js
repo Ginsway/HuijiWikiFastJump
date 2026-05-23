@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuijiWiki 模板快速跳转
 // @namespace    https://*.huijiwiki.com/
-// @version      1.4.3
+// @version      1.4.4
 // @description  Ctrl+左键新标签打开模板链接，Ctrl悬停显示手型光标
 // @author       Ginsway with GPT4.1
 // @match        https://*.huijiwiki.com/*
@@ -18,18 +18,23 @@
     function hasAllClasses(el, classList) {
         return classList.every(c => el.classList.contains(c));
     }
+    function hasAnyClasses(el, classList) {
+        return classList.some(c => el.classList.contains(c));
+    }
 
     const needed = [
-        "cm-mw-template-ground",
         "cm-mw-template-name",
         "cm-mw-pagename"
     ];
     const needed2 = [
+        "cm-mw-template-ground",
         "cm-mw-template2-ground",
-        "cm-mw-template-name",
-        "cm-mw-pagename"
+        "cm-mw-template-ext-ground"
     ];
 
+    function isTargetElement(el) {
+        return hasAllClasses(el, needed) && hasAnyClasses(el, needed2);
+    }
     // 当前进入的目标元素，方便失焦恢复
     let currentTarget = null;
 
@@ -38,11 +43,11 @@
     if (e.button !== 0 || !e.ctrlKey) return;
     let el = e.target;
     while (el && el !== document.body) {
-        if (el.classList && hasAllClasses(el, needed)||hasAllClasses(el, needed2)) {
+        if (el.classList && isTargetElement(el)) {
             const id = (el.textContent || '').trim();
             if (id) {
                 window.open(
-                    `https://zhrail.huijiwiki.com/wiki/%E6%A8%A1%E6%9D%BF:${encodeURIComponent(id)}`,
+                    `https://${window.location.hostname}/wiki/%E6%A8%A1%E6%9D%BF:${encodeURIComponent(id)}`,
                     "_blank"
                 );
                 e.preventDefault();
@@ -57,7 +62,7 @@
     document.addEventListener("mouseover", function (e) {
         let el = e.target;
         while (el && el !== document.body) {
-            if (el.classList && hasAllClasses(el, needed)||hasAllClasses(el, needed2)) {
+            if (el.classList && isTargetElement(el)) {
                 currentTarget = el;
                 if (window.ctrlKeyDown) {
                     el.style.cursor = "pointer";
