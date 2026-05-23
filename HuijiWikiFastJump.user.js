@@ -6,7 +6,6 @@
 // @author       Ginsway with GPT4.1
 // @match        *://*/*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/Ginsway/HuijiWikiFastJump/main/HuijiWikiFastJump.js
 // ==/UserScript==
 
 (function() {
