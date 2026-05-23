@@ -6,6 +6,9 @@
 // @author       Ginsway with GPT4.1
 // @match        https://*.huijiwiki.com/*
 // @grant        none
+// @source       https://github.com/Ginsway/HuijiWikiFastJump/
+// @updateURL    https://github.com/Ginsway/HuijiWikiFastJump/raw/refs/heads/main/HuijiWikiFastJump.user.js
+// @downloadURL  https://github.com/Ginsway/HuijiWikiFastJump/raw/refs/heads/main/HuijiWikiFastJump.user.js
 // ==/UserScript==
 
 (function() {
