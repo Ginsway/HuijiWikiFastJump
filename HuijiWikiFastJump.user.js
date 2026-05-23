@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         HuijiWiki 模板快速跳转
 // @namespace    https://*.huijiwiki.com/
-// @version      1.4
+// @version      1.4.1
 // @description  Ctrl+左键新标签打开模板链接，Ctrl悬停显示手型光标
 // @author       Ginsway with GPT4.1
-// @match        *://*/*
+// @match        https://*.huijiwiki.com/*
 // @grant        none
 // ==/UserScript==
 
