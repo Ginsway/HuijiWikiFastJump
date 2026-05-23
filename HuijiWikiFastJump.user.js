@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HuijiWiki 模板快速跳转
 // @namespace    https://*.huijiwiki.com/
-// @version      1.4.2
+// @version      1.4.3
 // @description  Ctrl+左键新标签打开模板链接，Ctrl悬停显示手型光标
 // @author       Ginsway with GPT4.1
 // @match        https://*.huijiwiki.com/*
@@ -24,6 +24,11 @@
         "cm-mw-template-name",
         "cm-mw-pagename"
     ];
+    const needed2 = [
+        "cm-mw-template2-ground",
+        "cm-mw-template-name",
+        "cm-mw-pagename"
+    ];
 
     // 当前进入的目标元素，方便失焦恢复
     let currentTarget = null;
@@ -33,7 +38,7 @@
     if (e.button !== 0 || !e.ctrlKey) return;
     let el = e.target;
     while (el && el !== document.body) {
-        if (el.classList && hasAllClasses(el, needed)) {
+        if (el.classList && hasAllClasses(el, needed)||hasAllClasses(el, needed2)) {
             const id = (el.textContent || '').trim();
             if (id) {
                 window.open(
@@ -52,7 +57,7 @@
     document.addEventListener("mouseover", function (e) {
         let el = e.target;
         while (el && el !== document.body) {
-            if (el.classList && hasAllClasses(el, needed)) {
+            if (el.classList && hasAllClasses(el, needed)||hasAllClasses(el, needed2)) {
                 currentTarget = el;
                 if (window.ctrlKeyDown) {
                     el.style.cursor = "pointer";
