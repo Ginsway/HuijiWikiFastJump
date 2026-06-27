@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         HuijiWiki 模板快速跳转
 // @namespace    https://*.huijiwiki.com/
-// @version      1.4.5
+// @version      1.4.6
 // @description  Ctrl+左键新标签打开模板链接，Ctrl悬停显示手型光标
-// @author       Ginsway with GPT4.1
+// @author       Ginsway with GPT4.1 , Kimi2.6
 // @match        https://*.huijiwiki.com/*
 // @grant        none
 // @source       https://github.com/Ginsway/HuijiWikiFastJump/
@@ -41,23 +41,40 @@
 
     // 绑定Ctrl+左键点击
     document.addEventListener('click', function (e) {
-    if (e.button !== 0 || !e.ctrlKey) return;
-    let el = e.target;
-    while (el && el !== document.body) {
-        if (el.classList && isTargetElement(el)) {
-            const id = (el.textContent || '').trim();
-            if (id) {
+        if (e.button !== 0 || !e.ctrlKey) return;
+        let el = e.target;
+        while (el && el !== document.body) {
+            if (el.classList && isTargetElement(el)) {
+                const id = (el.textContent || '').trim();
+                if (!id) return;
+
+                let pageName;
+                if (id.includes(':')) {
+                    // 如果 id 中包含 ":"，则不拼接 "模板:" 前缀
+                    if (id.startsWith(':')) {
+                        // 如果 ":" 前面没有东西（即以 ":" 开头），删除开头的 ":"
+                        pageName = id.substring(1);
+                    } else {
+                        pageName = id;
+                    }
+                } else {
+                    // 不包含 ":"，正常拼接 "模板:" 前缀
+                    pageName = '模板:' + id;
+                }
+
+                // 防止处理后为空
+                if (!pageName) return;
+
                 window.open(
-                    `https://${window.location.hostname}/wiki/%E6%A8%A1%E6%9D%BF:${encodeURIComponent(id)}`,
+                    `https://${window.location.hostname}/wiki/${encodeURIComponent(pageName)}`,
                     "_blank"
                 );
                 e.preventDefault();
-                return; // 这里要加return，防止多次处理
+                return; // 防止多次处理
             }
+            el = el.parentElement;
         }
-        el = el.parentElement;
-    }
-}, false); // <<< 用冒泡阶段
+    }, false); // 用冒泡阶段
 
     // 悬浮逻辑
     document.addEventListener("mouseover", function (e) {
