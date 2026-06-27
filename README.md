@@ -5,7 +5,7 @@
 在灰机Wiki编辑页面按下 `Ctrl + 鼠标左键` 点击页面内模板名称，会直接新开标签页跳转至对应MediaWiki模板页面，无需手动复制、搜索模板名，像IDE跳转定义一样便捷，大幅提升编写Wiki时查阅模板参数、用法的效率。
 
 ## 安装步骤
-### 1. 安装油猴脚本管理器
+### 1. 安装Tampermonkey
 主流浏览器任选其一安装插件：
 - Chrome / Edge：[Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 - Firefox：[Tampermonkey](https://addons.mozilla.org/firefox/addon/tampermonkey/)
